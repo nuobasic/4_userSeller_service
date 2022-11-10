@@ -60,11 +60,11 @@
 | --- | --- | --- | --- |
 | POST | /api/market | user : seller<br>marketName : 마켓 이름<br>phone : 전화번호<br>country : 나라 | statusCode : 201 |
 
-- 마켓 삭제
+- 상품 삭제
 
-| Method | URL | Request Path | Request Body | Response |
-| --- | --- | --- | --- | --- |
-| DELETE | /api/market/:marketdId | marketdId : 마켓 id | statusCode : 200 |
+| Method | URL | Request Path | Response |
+| --- | --- | --- | --- |
+| DELETE | /api/market/:marketId| marketId : 마켓 id | statusCode : 200 |
 
 - 상품 등록
 
@@ -75,7 +75,7 @@
 - 상품 개별 조회
 
 | Method | URL | Request Path |  Response |
-| --- | --- | --- | --- | --- |
+| --- | --- | --- | --- |
 | GET | /api/product/:productId | productId : 상품 id | statusCode : 200 |
 
 - 상품 전체 조회
@@ -87,7 +87,7 @@
 - 상품 검색 조회
 
 | Method | URL | Response |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 | GET | /api/product?search=' ' |statusCode : 200 |
 
 - 상품 수정
