@@ -98,4 +98,24 @@ export class ProductService {
     }
     return result;
   }
+
+  async updateProduct(productId: number, prduct: Product) {
+    const exitedProduct = await this.productRepository.findOne({
+      where: { productId },
+    });
+    let result;
+    if (exitedProduct) {
+      result = await this.productRepository
+        .createQueryBuilder('product')
+        .update(Product)
+        .set({
+          price: prduct.price,
+          content: prduct.content,
+          deliverPrice: prduct.deliverPrice,
+        })
+        .where('productId=:productId', { productId })
+        .execute();
+    }
+    return result;
+  }
 }
