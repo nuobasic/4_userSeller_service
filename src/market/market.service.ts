@@ -1,4 +1,8 @@
-import { Injectable, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  ForbiddenException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/user/entity/User';
 import { UserRole } from '../user/entity/UserRole';
@@ -27,5 +31,20 @@ export class MarketService {
     const saveMarket = await this.marketRepository.save(market);
 
     return saveMarket;
+  }
+
+  async deleteMarket(marketId: number, user: User) {
+    const result = await this.marketRepository
+      .createQueryBuilder('market')
+      .leftJoin('market.user', 'user')
+      .where('market.marketId =:marketId', { marketId })
+      .andWhere('market.user =:userId', { userId: user.userId })
+      .andWhere('market.deleteAt IS NULL')
+      .getOne();
+
+    if (!result) {
+      throw new NotFoundException('마켓이 없습니다.');
+    }
+    return this.marketRepository.softDelete(marketId);
   }
 }
