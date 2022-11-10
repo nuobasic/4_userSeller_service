@@ -5,6 +5,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { User } from './user/entity/User';
+import { MarketModule } from './market/market.module';
+import { Market } from './market/entity/Market';
 
 @Module({
   imports: [
@@ -20,7 +22,7 @@ import { User } from './user/entity/User';
           password: configService.get('DB_PASSWORD'),
           database: configService.get('DB_DATABASE'),
           migrations: [__dirname + '/src/migrations/*.ts'],
-          entities: [User],
+          entities: [User, Market],
           autoLoadEntities: true,
           synchronize: true,
           logging: true,
@@ -29,6 +31,7 @@ import { User } from './user/entity/User';
       },
     }),
     UserModule,
+    MarketModule,
   ],
   controllers: [AppController],
   providers: [AppService],
