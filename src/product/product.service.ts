@@ -32,4 +32,28 @@ export class ProductService {
     });
     return this.productRepository.save(product);
   }
+
+  async getProduct(productId: number) {
+    let result;
+    const product = await this.productRepository.findOne({
+      where: { productId },
+    });
+    if (!product) {
+      throw new NotFoundException('상품이 없습니다.');
+    } else {
+      result = await this.productRepository
+        .createQueryBuilder('product')
+        .leftJoin('product.market', 'market')
+        .select([
+          'product.productName',
+          'product.price',
+          'product.deliverPrice',
+          'product.content',
+          'market.marketName',
+          'market.country',
+        ])
+        .getOne();
+    }
+    return result;
+  }
 }
