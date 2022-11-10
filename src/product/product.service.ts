@@ -56,4 +56,23 @@ export class ProductService {
     }
     return result;
   }
+
+  async recentProduct() {
+    let result;
+    const allProduct = await this.productRepository.find();
+    if (allProduct) {
+      result = await this.productRepository
+        .createQueryBuilder('product')
+        .leftJoin('product.market', 'market')
+        .select([
+          'product.productName',
+          'product.price',
+          'product.deliverPrice',
+          'product.content',
+        ])
+        .orderBy({ 'product.createAt': 'DESC' })
+        .getMany();
+    }
+    return result;
+  }
 }

@@ -15,4 +15,8 @@ export class ProductController {
   async getProduct(@Param(':productId') productId: number) {
     return await this.productService.getProduct(productId);
   }
+  @Get()
+  async recentProduct() {
+    return await this.productService.recentProduct();
+  }
 }
