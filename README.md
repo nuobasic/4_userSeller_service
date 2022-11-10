@@ -1,73 +1,103 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Seller Product Service
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 기술 스택
 
-## Description
+- Framework: `NestJS`
+- Database: `RDS - mysql`
+- ORM: `TypeORM`
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+# 요구사항 분석
 
-```bash
-$ npm install
-```
+## 1. 회원가입 및 로그인
+  - 회원 가입을 합니다.
+  - 가입된 회원 정보로 로그인을 진행 합니다.
+  - 회원 가입시 seller 권한이 있습니다.
+   
+## 2. 마켓 등록
+  - seller는 자신의 마켓을 등록할 수 있습니다.
+  
+  
+## 3. 마켓 삭제
+  - 마켓을 삭제합니다.
+  - seller가 자신의 마켓을 삭제 합니다.
+  
+## 4. 상품 등록
+  - 마켓에 상품을 등록 합니다.
+  - 이름, 가격, 배송비 등의 정보를 가지고 있습니다.
 
-## Running the app
+## 5. 상품 조회
+  - 상품에 상세 정보를 가져 옵니다.
 
-```bash
-# development
-$ npm run start
+## 6. 상품 리스트
+  - 최신순으로 상품을 보여줍니다.
+  - 상품의 이름이나 seller의 국가로 검색을 합니다.
 
-# watch mode
-$ npm run start:dev
+## 7. 상품 수정
+  - 상품의 내용을 수정 합니다.
+  
+## 8. 상품 삭세
+  - 상품을 삭제 합니다.
 
-# production mode
-$ npm run start:prod
-```
 
-## Test
+## API
+- 회원 가입
 
-```bash
-# unit tests
-$ npm run test
+| Method | URL | Request Body | Response |
+| --- | --- | --- | --- |
+| POST | /api/user | email : emai<br>password : 암호화 패스워드<br>role : 권한| statusCode : 201 |
 
-# e2e tests
-$ npm run test:e2e
+- 로그인
 
-# test coverage
-$ npm run test:cov
-```
+| Method | URL | Request Parameter | Response |
+| --- | --- | --- | --- |
+| POST | /api/user/login | email과 password 로 로그인 진행 | statusCode : 200|
 
-## Support
+- 마켓 등록
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+| Method | URL | Request Body | Response |
+| --- | --- | --- | --- |
+| POST | /api/market | user : seller<br>marketName : 마켓 이름<br>phone : 전화번호<br>country : 나라 | statusCode : 201 |
 
-## Stay in touch
+- 마켓 삭제
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+| Method | URL | Request Path | Request Body | Response |
+| --- | --- | --- | --- | --- |
+| DELETE | /api/market/:marketdId | marketdId : 마켓 id | statusCode : 200 |
 
-## License
+- 상품 등록
 
-Nest is [MIT licensed](LICENSE).
+| Method | URL | Request Body | Response |
+| --- | --- | --- | --- |
+| POST | /api/product | market : seller의 마켓<br>productName :상품 이름<br>price : 상품 가격<br>deliverPrice : 배송비<br>content: 설명 | statusCode : 201 |
+
+- 상품 개별 조회
+
+| Method | URL | Request Path |  Response |
+| --- | --- | --- | --- | --- |
+| GET | /api/product/:productId | productId : 상품 id | statusCode : 200 |
+
+- 상품 전체 조회
+
+| Method | URL | Request Path |  Response |
+| --- | --- | --- | --- |
+| GET | /api/product |  | statusCode : 200 |
+
+- 상품 검색 조회
+
+| Method | URL | Request Path |  Response |
+| --- | --- | --- | --- | --- |
+| GET | /api/product?search=' ' |  | statusCode : 200 |
+
+- 상품 수정
+
+| Method | URL | Request Path | Response |
+| --- | --- | --- | --- |
+| PUT | /api/product/:productId| productId : 상품 id | statusCode : 200 |
+
+- 상품 삭제
+
+| Method | URL | Request Path | Response |
+| --- | --- | --- | --- |
+| DELETE | /api/product/:productId| productId : 상품 id | statusCode : 200 |
