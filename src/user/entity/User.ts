@@ -1,7 +1,15 @@
 import { IsEnum } from 'class-validator';
-import { DateColumns } from '../../dateColumm/dateColumns';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  DeleteDateColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { UserRole } from './UserRole';
+import { Market } from '../../market/entity/Market';
 
 @Entity('user')
 export class User {
@@ -18,6 +26,15 @@ export class User {
   @Column({ default: UserRole.USER })
   role: UserRole;
 
-  @Column(() => DateColumns, { prefix: false })
-  dateColums: DateColumns;
+  @CreateDateColumn()
+  createAt: Date;
+
+  @UpdateDateColumn()
+  updateAt: Date;
+
+  @DeleteDateColumn()
+  deleteAt: Date;
+
+  @OneToMany(() => Market, (market) => market.user, { eager: true })
+  market: Market[];
 }
