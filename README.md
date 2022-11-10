@@ -82,13 +82,13 @@
 
 | Method | URL | Request Path |  Response |
 | --- | --- | --- | --- |
-| GET | /api/product |  | statusCode : 200 |
+| GET | /api/product | statusCode : 200 |
 
 - 상품 검색 조회
 
 | Method | URL | Request Path |  Response |
 | --- | --- | --- | --- | --- |
-| GET | /api/product?search=' ' |  | statusCode : 200 |
+| GET | /api/product?search=' ' |statusCode : 200 |
 
 - 상품 수정
 
