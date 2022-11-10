@@ -47,4 +47,13 @@ export class MarketService {
     }
     return this.marketRepository.softDelete(marketId);
   }
+
+  async findOneMarket(marketId: number) {
+    const market = await this.marketRepository.findOne({ where: { marketId } });
+
+    if (!market) {
+      throw new NotFoundException('마켓이 없습니다.');
+    }
+    return market;
+  }
 }

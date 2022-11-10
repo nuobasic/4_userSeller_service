@@ -8,6 +8,7 @@ import { User } from './user/entity/User';
 import { MarketModule } from './market/market.module';
 import { Market } from './market/entity/Market';
 import { ProductModule } from './product/product.module';
+import { Product } from './product/entity/Product';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { ProductModule } from './product/product.module';
           password: configService.get('DB_PASSWORD'),
           database: configService.get('DB_DATABASE'),
           migrations: [__dirname + '/src/migrations/*.ts'],
-          entities: [User, Market],
+          entities: [User, Market, Product],
           autoLoadEntities: true,
           synchronize: true,
           logging: true,
