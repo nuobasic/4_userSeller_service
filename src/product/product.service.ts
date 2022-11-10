@@ -118,4 +118,8 @@ export class ProductService {
     }
     return result;
   }
+
+  async deleteProduct(productId: number) {
+    await this.productRepository.delete(productId);
+  }
 }

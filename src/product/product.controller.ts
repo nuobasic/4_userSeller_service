@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { Product } from './entity/Product';
 import { ProductService } from './product.service';
@@ -30,5 +39,14 @@ export class ProductController {
     @Body() product: Product,
   ): Promise<Product> {
     return await this.productService.updateProduct(productId, product);
+  }
+
+  @Delete(':productId')
+  async deleteProduct(@Param('productId') productId: number) {
+    await this.productService.deleteProduct(productId);
+    return {
+      statusCode: 200,
+      message: '삭제성공',
+    };
   }
 }
