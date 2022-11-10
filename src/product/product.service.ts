@@ -68,9 +68,32 @@ export class ProductService {
           'product.productName',
           'product.price',
           'product.deliverPrice',
-          'product.content',
+          'market.country',
         ])
         .orderBy({ 'product.createAt': 'DESC' })
+        .getMany();
+    }
+    return result;
+  }
+
+  async searchProduct(search: string) {
+    let result;
+
+    if (search) {
+      result = await this.productRepository
+        .createQueryBuilder('product')
+        .leftJoin('product.market', 'market')
+        .where([
+          `product.productName LIKE :search or market.country LIKE :search`,
+          { search: `%${search}%` },
+        ])
+        .select([
+          'product.productName',
+          'product.price',
+          'product.deliverPrice',
+          'market.country',
+        ])
+
         .getMany();
     }
     return result;
