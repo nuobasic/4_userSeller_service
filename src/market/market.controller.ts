@@ -16,6 +16,14 @@ import { MarketService } from './market.service';
 export class MarketController {
   constructor(private readonly marketService: MarketService) {}
 
+  /**
+   * @url POST 'api/market'
+   * @Body 마켓 body {marketName, phone, country}
+   * @GetUser 로그인 유저
+   * @description 마켓 생성기능
+   * @returns 마켓 생성
+   */
+
   @UseGuards(AuthGuard())
   @Post()
   async createMarket(
@@ -25,6 +33,13 @@ export class MarketController {
     return await this.marketService.createMarket(createMarketDto, user);
   }
 
+  /**
+   * @url Delete 'api/market/:marketId'
+   * @Param marketId
+   * @GetUser 로그인 유저
+   * @description 마켓 삭제 기능
+   * @returns 마켓 삭세
+   */
   @UseGuards(AuthGuard())
   @Delete(':marketId')
   async deleteMarket(
