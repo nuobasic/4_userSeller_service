@@ -16,6 +16,7 @@ export class MarketService {
     private readonly marketRepository: Repository<Market>,
   ) {}
 
+  //seller의 권한을 가진 유저만 마켓의 등록을 할 수 있습니다.
   async createMarket(createMarketDto: CreateMarketDto, user: User) {
     const market = new Market();
 
@@ -33,6 +34,7 @@ export class MarketService {
     return saveMarket;
   }
 
+  //등록한 마켓만 삭제를 할 수 있습니다.
   async deleteMarket(marketId: number, user: User) {
     const result = await this.marketRepository
       .createQueryBuilder('market')

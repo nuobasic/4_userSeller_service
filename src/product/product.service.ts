@@ -14,6 +14,7 @@ export class ProductService {
     private readonly marketService: MarketService,
   ) {}
 
+  //상품 생성
   async createProduct(createProductDto: CreateProductDto) {
     const market = await this.marketService.findOneMarket(
       createProductDto.marketId,
@@ -33,6 +34,7 @@ export class ProductService {
     return this.productRepository.save(product);
   }
 
+  //상품 상세 조회
   async getProduct(productId: number) {
     let result;
     const product = await this.productRepository.findOne({
@@ -57,6 +59,7 @@ export class ProductService {
     return result;
   }
 
+  //상품 최신순 조회
   async recentProduct() {
     let result;
     const allProduct = await this.productRepository.find();
@@ -76,6 +79,7 @@ export class ProductService {
     return result;
   }
 
+  //상품 검색
   async searchProduct(search: string) {
     let result;
 
@@ -99,6 +103,7 @@ export class ProductService {
     return result;
   }
 
+  //상품 수정
   async updateProduct(productId: number, prduct: Product) {
     const exitedProduct = await this.productRepository.findOne({
       where: { productId },
@@ -119,6 +124,7 @@ export class ProductService {
     return result;
   }
 
+  //상품 삭제
   async deleteProduct(productId: number) {
     await this.productRepository.delete(productId);
   }
