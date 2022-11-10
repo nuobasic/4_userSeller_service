@@ -34,12 +34,12 @@ export class UserService {
     return result;
   }
   async logIn(loginUserDto: LogInUserDto) {
-    const { email, password } = loginUserDto;
+    const { email, password, role } = loginUserDto;
 
     const user = await this.userRepository.findOne({ where: { email } });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      const payload = { email };
+      const payload = { email, role };
       const accessToken = await this.jwtService.sign(payload);
 
       return { accessToken };
